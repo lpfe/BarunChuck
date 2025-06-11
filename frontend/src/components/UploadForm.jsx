@@ -33,7 +33,7 @@ const handleUpload = async () => {
 return (
     <div className="w-full max-w-xl mx-auto mt-12 p-6 bg-white rounded-xl shadow-md text-center">
     <h1 className="text-3xl font-bold mb-2">Posture Perfect</h1>
-    <p className="text-gray-500 mb-4">AI-Powered Posture Analysis!!@</p>
+    <p className="text-gray-500 mb-4">AI-Powered Posture Analysis!!@0311</p>
 
     <input type="file" accept="video/*" onChange={handleFileChange} className="mb-4" />
     {preview && (
