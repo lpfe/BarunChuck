@@ -16,10 +16,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    volumes:
-      - ./frontend/dist:/usr/share/nginx/html
-    image: nginx:stable
     ports:
       - "3000:80"
-    depends_on:
-      - backend
+    restart: always
