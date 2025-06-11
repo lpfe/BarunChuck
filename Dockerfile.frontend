@@ -1,4 +1,4 @@
-# 1단계: React 앱 빌드
+# 단계 1: React 앱 빌드
 FROM node:20 AS build
 WORKDIR /app
 COPY frontend/package*.json ./
@@ -6,7 +6,7 @@ RUN npm install
 COPY frontend/ .
 RUN npm run build
 
-# 2단계: nginx로 빌드 결과 제공
+# 단계 2: Nginx로 정적 파일 서빙
 FROM nginx:stable
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
