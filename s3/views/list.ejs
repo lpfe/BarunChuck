@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Uploaded Videos</title>
+</head>
+<body>
+<h2>📂 Uploaded Video Files</h2>
+<table border="1">
+    <tr>
+    <th>Filename</th>
+    <th>Last Modified</th>
+    <th>Size (KB)</th>
+    <th>Preview</th>
+    <th>Delete</th>
+    </tr>
+    <% files.forEach(file => { if(file.Key !== 'videos/') { %>
+    <tr>
+        <td><%= file.Key %></td>
+        <td><%= new Date(file.LastModified).toLocaleString() %></td>
+        <td><%= Math.round(file.Size / 1024) %> KB</td>
+        <td>
+        <video width="300" controls>
+            <source src="https://<%= process.env.BUCKET_URL || 'YOUR_BUCKET.s3.ap-northeast-3.amazonaws.com' %>/<%= file.Key %>" type="video/mp4">
+        </video>
+        </td>
+        <td>
+        <form method="POST" action="/deleteFile">
+            <input type="hidden" name="key" value="<%= file.Key %>">
+            <button type="submit">Delete</button>
+        </form>
+        </td>
+    </tr>
+    <% } }) %>
+</table>
+<br/>
+<a href="/">⬅️ Back to Upload</a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload Confirmation</title>
+</head>
+<body>
+<h2>✅ Upload Success!</h2>
+<p><strong>Filename:</strong> <%= file.name %></p>
+<p><strong>File URL:</strong> <a href="<%= file.url %>" target="_blank"><%= file.url %></a></p>
+
+<% if (file.type.startsWith('video')) { %>
+    <h3>Preview</h3>
+    <video width="600" controls>
+    <source src="<%= file.url %>" type="<%= file.type %>">
+    </video>
+<% } %>
+
+<br/><br/>
+<a href="/">⬅️ Back to Upload</a>
+</body>
+</html>
