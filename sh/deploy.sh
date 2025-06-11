@@ -4,11 +4,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm use node
 
-cd actions
+cd BarunChuck
 
 git pull;
 
-SRC=/work/actions/nodejs/hello
+SRC=/work/BarunChuck/nodejs/hello
 DEST=/$HOME/deploy
 
 rm -rf $DEST
