@@ -1,9 +1,10 @@
-FROM node:20
-
+FROM node:20 AS build
 WORKDIR /app
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend/ .
 RUN npm run build
 
-# Static build will be served via nginx or mounted
+# Serve using nginx
+FROM nginx:stable
+COPY --from=build /app/dist /usr/share/nginx/html
