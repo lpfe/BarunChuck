@@ -27,7 +27,7 @@ jobs:
           uvicorn app:app --host 0.0.0.0 --port 3000 --reload &
         timeout-minutes: 10
 
-      - name: Stop Uvicorn Server
-        run: |
-          cd python/fastapi
-          pkill -f uvicorn
+      # - name: Stop Uvicorn Server
+      #   run: |
+      #     cd python/fastapi
+      #     pkill -f uvicorn
