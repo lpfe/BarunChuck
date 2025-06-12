@@ -1,0 +1,38 @@
+/* styles/UploadForm.css */
+
+.upload-box {
+  background-color: #f5f5ff;
+  border: 2px dashed #6b46ff;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.upload-box.dragover {
+  background-color: #e9e9ff;
+  border-color: #4c3cff;
+}
+
+.upload-button {
+  background-color: #6b46ff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+  background-color: #5532d2;
+}
+
+.upload-button:disabled {
+  background-color: #a5a5a5;
+  cursor: not-allowed;
+}
+
+.file-name {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #333;
+  text-align: center;
+}
