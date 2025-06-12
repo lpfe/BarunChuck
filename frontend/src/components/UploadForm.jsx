@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
-import './styles/UploadForm.css'
+import '/work/BarunChuck/frontend/src/styles/UploadForm.css'
 
 function UploadForm() {
   const [file, setFile] = useState(null)
