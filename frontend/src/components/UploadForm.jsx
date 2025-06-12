@@ -8,17 +8,15 @@ function UploadForm() {
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0]
-    setFile(selected)
+    if (selected) setFile(selected)
   }
 
   const handleDrop = (e) => {
     e.preventDefault()
     setIsDragging(false)
 
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      setFile(e.dataTransfer.files[0])
-      e.dataTransfer.clearData()
-    }
+    const droppedFile = e.dataTransfer.files[0]
+    if (droppedFile) setFile(droppedFile)
   }
 
   const handleUpload = async (e) => {
@@ -50,12 +48,16 @@ function UploadForm() {
         <form onSubmit={handleUpload}>
           <div
             onDrop={handleDrop}
-            onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
+            onDragOver={(e) => {
+              e.preventDefault()
+              setIsDragging(true)
+            }}
             onDragEnter={() => setIsDragging(true)}
             onDragLeave={() => setIsDragging(false)}
-            className={`flex flex-col items-center justify-center w-full h-60 px-4 transition bg-indigo-50 border-2 border-dashed ${
-              isDragging ? 'border-indigo-600 bg-indigo-100' : 'border-indigo-300'
-            } rounded-xl cursor-pointer`}
+            className={`flex flex-col items-center justify-center w-full h-60 px-4 transition border-2 border-dashed rounded-xl cursor-pointer ${
+              isDragging ? 'border-indigo-600 bg-indigo-100' : 'border-indigo-300 bg-indigo-50'
+            }`}
+            onClick={() => document.getElementById('fileUpload').click()}
           >
             <svg className="w-12 h-12 text-indigo-500 mb-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M4 12l1.664-1.664a4 4 0 015.656 0L12 12m0 0l.68-.68a4 4 0 015.656 0L20 12m-8 0v6" />
@@ -71,6 +73,13 @@ function UploadForm() {
               className="hidden"
             />
           </div>
+
+          {/* 파일 이름 보여주기 */}
+          {file && (
+            <p className="mt-4 text-sm text-gray-700 text-center">
+              📁 Selected File: <span className="font-medium">{file.name}</span>
+            </p>
+          )}
 
           <button
             type="submit"
