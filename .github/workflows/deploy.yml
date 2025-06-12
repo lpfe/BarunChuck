@@ -29,5 +29,4 @@ jobs:
             docker-compose build --no-cache
             docker-compose up -d
             docker rmi $(docker images -f "dangling=true" -q) --force
-            npm cache clean --force
           EOF
