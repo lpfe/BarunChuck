@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
-import '/work/BarunChuck/frontend/src/styles/UploadForm.css'
+import '../styles/UploadForm.css'
 
 function UploadForm() {
   const [file, setFile] = useState(null)
@@ -43,7 +43,7 @@ function UploadForm() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-xl">
         <h1 className="text-3xl font-bold text-center mb-1 text-gray-900">Posture Perfect</h1>
-        <p className="text-center text-gray-500 mb-6">AI-Powered Posture Analysis</p>
+        <p className="text-center text-gray-500 mb-6">AI-Powered Posture Analysis!!!</p>
 
         <form onSubmit={handleUpload}>
           <div
