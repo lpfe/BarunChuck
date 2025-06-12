@@ -4,10 +4,21 @@ import axios from 'axios'
 function UploadForm() {
   const [file, setFile] = useState(null)
   const [uploading, setUploading] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0]
     setFile(selected)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    setIsDragging(false)
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      setFile(e.dataTransfer.files[0])
+      e.dataTransfer.clearData()
+    }
   }
 
   const handleUpload = async (e) => {
@@ -37,14 +48,29 @@ function UploadForm() {
         <p className="text-center text-gray-500 mb-6">AI-Powered Posture Analysis</p>
 
         <form onSubmit={handleUpload}>
-          <label htmlFor="fileUpload" className="flex flex-col items-center justify-center w-full h-60 px-4 transition bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-xl cursor-pointer hover:bg-indigo-100">
+          <div
+            onDrop={handleDrop}
+            onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
+            onDragEnter={() => setIsDragging(true)}
+            onDragLeave={() => setIsDragging(false)}
+            className={`flex flex-col items-center justify-center w-full h-60 px-4 transition bg-indigo-50 border-2 border-dashed ${
+              isDragging ? 'border-indigo-600 bg-indigo-100' : 'border-indigo-300'
+            } rounded-xl cursor-pointer`}
+          >
             <svg className="w-12 h-12 text-indigo-500 mb-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M4 12l1.664-1.664a4 4 0 015.656 0L12 12m0 0l.68-.68a4 4 0 015.656 0L20 12m-8 0v6" />
             </svg>
             <p className="mb-1 text-sm text-gray-600">Drag & Drop your video here</p>
             <p className="text-sm text-indigo-500 font-medium">or <span className="underline">Browse Files</span></p>
-            <input id="fileUpload" name="attachment" type="file" accept="video/*" onChange={handleFileChange} className="hidden" required />
-          </label>
+            <input
+              id="fileUpload"
+              name="attachment"
+              type="file"
+              accept="video/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </div>
 
           <button
             type="submit"
