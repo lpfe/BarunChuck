@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import axios from 'axios'
 import '../styles/UploadForm.css'
+import FeedbackResult from './FeedbackResult'
 
 function UploadForm() {
   const [file, setFile] = useState(null)
   const [uploading, setUploading] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
+  const [uploadedFileName, setUploadedFileName] = useState(null)
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0]
@@ -19,8 +21,7 @@ function UploadForm() {
     if (droppedFile) setFile(droppedFile)
   }
 
-  const handleUpload = async (e) => {
-    e.preventDefault()
+  const handleUpload = async () => {
     if (!file) return
 
     const formData = new FormData()
@@ -31,6 +32,7 @@ function UploadForm() {
       const res = await axios.post('http://localhost:8000/uploadFile', formData)
       alert('✅ Upload success!')
       console.log(res.data)
+      setUploadedFileName(res.data.filename.replace('.mp4', ''))
     } catch (err) {
       alert('❌ Upload failed')
       console.error(err)
@@ -40,12 +42,12 @@ function UploadForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4 py-10">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-xl">
         <h1 className="text-3xl font-bold text-center mb-1 text-gray-900">Posture Perfect</h1>
         <p className="text-center text-gray-500 mb-6">AI-Powered Posture Analysis!!!</p>
 
-        <form onSubmit={handleUpload}>
+        <div onSubmit={(e) => e.preventDefault()}>
           <div
             className={`upload-box ${isDragging ? 'dragover' : ''} flex flex-col items-center justify-center rounded-xl cursor-pointer h-60`}
             onDrop={handleDrop}
@@ -68,20 +70,27 @@ function UploadForm() {
               className="hidden"
             />
           </div>
-
+{/*
           {file && (
             <p className="file-name">📁 Selected File: {file.name}</p>
           )}
-
+*/}
           <button
-            type="submit"
+            type="button"
+            onClick={handleUpload}
             disabled={!file || uploading}
             className="upload-button w-full mt-6"
           >
             {uploading ? 'Uploading...' : 'Analyze Posture'}
           </button>
-        </form>
+        </div>
       </div>
+
+      {uploadedFileName && (
+        <div className="mt-10 w-full max-w-4xl">
+          <FeedbackResult filename={uploadedFileName} />
+        </div>
+      )}
     </div>
   )
 }

@@ -45,4 +45,25 @@ try {
 }
 });
 
+// 분석된 피드백 불러오기
+router.get('/getFeedback/:filename', async (req, res) => {
+  const filename = req.params.filename.endsWith('.json')
+    ? req.params.filename
+    : `${req.params.filename}.json`;
+
+  const params = {
+    Bucket: BUCKET_NAME,
+    Key: `feedbacks/${filename}`
+  };
+
+  try {
+    const data = await s3.getObject(params).promise();
+    const feedback = JSON.parse(data.Body.toString('utf-8'));
+    res.json(feedback);
+  } catch (err) {
+    console.error('❌ Failed to fetch feedback:', err.message);
+    res.status(404).json({ error: 'Feedback not found' });
+}
+});
+
 module.exports = router;
