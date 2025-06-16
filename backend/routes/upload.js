@@ -38,7 +38,7 @@ try {
     s3.upload(params, (err, data) => {
     fs.unlink(filePath, () => {}); // 업로드 후 로컬 삭제
     if (err) return res.status(500).json({ error: 'S3 Upload failed', details: err });
-    return res.status(200).json({ message: 'Upload successful', url: data.Location });
+    return res.status(200).json({ message: 'Upload successful', url: data.Location, filename: filename.replace('.mp4', '') });
     });
 } catch (err) {
     return res.status(500).json({ error: 'Server error', details: err.message });

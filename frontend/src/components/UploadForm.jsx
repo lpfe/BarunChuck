@@ -1,13 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/UploadForm.css'
-import FeedbackResult from './FeedbackResult'
 
 function UploadForm() {
   const [file, setFile] = useState(null)
   const [uploading, setUploading] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
-  const [uploadedFileName, setUploadedFileName] = useState(null)
+  const navigate = useNavigate()
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0]
@@ -30,9 +30,9 @@ function UploadForm() {
     try {
       setUploading(true)
       const res = await axios.post('http://localhost:8000/uploadFile', formData)
+      const name = res.data.filename.replace('.mp4', '')
       alert('✅ Upload success!')
-      console.log(res.data)
-      setUploadedFileName(res.data.filename.replace('.mp4', ''))
+      navigate(`/result/${name}`) // ✅ 결과 페이지로 자동 이동
     } catch (err) {
       alert('❌ Upload failed')
       console.error(err)
@@ -42,55 +42,53 @@ function UploadForm() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4 py-10">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-xl">
-        <h1 className="text-3xl font-bold text-center mb-1 text-gray-900">Posture Perfect</h1>
-        <p className="text-center text-gray-500 mb-6">AI-Powered Posture Analysis!!!</p>
+    <div className="container">
+      <div className="card">
+        <h1 className="title">영상 분석</h1>
+        <p className="subtitle">AI-Powered Posture Analysis</p>
 
-        <div onSubmit={(e) => e.preventDefault()}>
-          <div
-            className={`upload-box ${isDragging ? 'dragover' : ''} flex flex-col items-center justify-center rounded-xl cursor-pointer h-60`}
-            onDrop={handleDrop}
-            onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
-            onDragEnter={() => setIsDragging(true)}
-            onDragLeave={() => setIsDragging(false)}
+        <div
+          className={`upload-area ${isDragging ? 'dragover' : ''}`}
+          onDrop={handleDrop}
+          onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
+          onDragEnter={() => setIsDragging(true)}
+          onDragLeave={() => setIsDragging(false)}
+        >
+          <svg className="upload-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M4 12l1.664-1.664a4 4 0 015.656 0L12 12m0 0l.68-.68a4 4 0 015.656 0L20 12m-8 0v6" />
+          </svg>
+          <p>Drag & Drop your video here</p>
+          {/* <span className="or-text">or</span> */}
+
+          <input
+            id="fileUpload"
+            type="file"
+            accept="video/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <button
+            type="button"
+            className="btn"
             onClick={() => document.getElementById('fileUpload').click()}
           >
-            <svg className="w-12 h-12 text-indigo-500 mb-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M4 12l1.664-1.664a4 4 0 015.656 0L12 12m0 0l.68-.68a4 4 0 015.656 0L20 12m-8 0v6" />
-            </svg>
-            <p className="text-gray-700">Drag & Drop your video here</p>
-            <span className="text-sm text-gray-500 mt-1">or</span>
-            <button type="button" className="upload-button">📁 Browse Files</button>
-            <input
-              id="fileUpload"
-              type="file"
-              accept="video/*"
-              onChange={handleFileChange}
-              className="hidden"
-            />
-          </div>
-{/*
+            📁 Browse Files
+          </button>
+        </div>
+
           {file && (
             <p className="file-name">📁 Selected File: {file.name}</p>
           )}
-*/}
-          <button
-            type="button"
-            onClick={handleUpload}
-            disabled={!file || uploading}
-            className="upload-button w-full mt-6"
-          >
-            {uploading ? 'Uploading...' : 'Analyze Posture'}
-          </button>
-        </div>
-      </div>
 
-      {uploadedFileName && (
-        <div className="mt-10 w-full max-w-4xl">
-          <FeedbackResult filename={uploadedFileName} />
-        </div>
-      )}
+        <button
+          type="button"
+          onClick={handleUpload}
+          disabled={!file || uploading}
+          className="btn full"
+        >
+          {uploading ? 'Uploading...' : 'Analyze Posture'}
+        </button>
+      </div>
     </div>
   )
 }

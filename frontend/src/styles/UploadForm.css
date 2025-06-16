@@ -1,38 +1,103 @@
 /* styles/UploadForm.css */
 
-.upload-box {
-  background-color: #f5f5ff;
-  border: 2px dashed skyblue;
-  transition: background-color 0.3s, border-color 0.3s;
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.upload-box.dragover {
-  background-color: #e9e9ff;
-  border-color: #4c3cff;
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f6fa;
+  padding: 2rem;
 }
 
-.upload-button {
-  background-color: skyblue;
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: #111827;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.upload-area {
+  border: 2px dashed #6366f1;
+  background-color: #eef0ff;
+  border-radius: 1rem;
+  padding: 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-area.dragover {
+  background-color: #e0e7ff;
+  border-color: #4f46e5;
+}
+
+.upload-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #6366f1;
+  margin-bottom: 0.5rem;
+}
+
+.or-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.25rem 0;
+}
+
+.btn {
+  background-color: #6366f1;
   color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  margin-top: 12px;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
   font-weight: 500;
+  cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.upload-button:hover {
-  background-color: #5532d2;
+.btn:hover {
+  background-color: #4f46e5;
 }
 
-.upload-button:disabled {
-  background-color: #a5a5a5;
+.btn:disabled {
+  background-color: #9ca3af;
   cursor: not-allowed;
 }
 
-.file-name {
-  margin-top: 8px;
-  font-size: 0.875rem;
-  color: #333;
-  text-align: center;
+.btn.full {
+  width: 100%;
+}
+
+.result {
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.hidden {
+  display: none;
 }

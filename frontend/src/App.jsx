@@ -1,11 +1,16 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import UploadForm from './components/UploadForm'
-import './index.css'
+import ResultPage from './components/ResultPage'
 
 function App() {
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <UploadForm />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/upload" />} />
+        <Route path="/upload" element={<UploadForm />} />
+        <Route path="/result/:filename" element={<ResultPage />} />
+      </Routes>
+    </Router>
   )
 }
 
