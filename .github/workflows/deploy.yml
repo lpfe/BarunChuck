@@ -1,32 +1,43 @@
-name: Deploy to EC2 with Docker
+name: EC2 CI/CD Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+    - name: Checkout source code
+      uses: actions/checkout@v4
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Deploy to EC2
-        run: |
-          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
-            cd /work/BarunChuck
-            git pull origin main
-            docker-compose down
-            docker-compose build --no-cache
-            docker-compose up -d
-            docker rmi $(docker images -f "dangling=true" -q) --force
-          EOF
+    - name: Build and push backend image
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/barunchuck-backend -f Dockerfile.backend .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/barunchuck-backend
+
+    - name: Build and push frontend image
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/barunchuck-frontend -f Dockerfile.frontend .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/barunchuck-frontend
+
+    - name: Deploy to EC2 via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.KEY }}
+        script: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/barunchuck-backend
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/barunchuck-frontend
+          cd /work/BarunChuck
+          docker-compose down
+          docker-compose up -d
+          docker rmi $(docker images -f "dangling=true" -q) --force

@@ -1,21 +1,26 @@
-version: '3'
+version: "3.8"
+
 services:
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
+    image: pcheol/barunchuck-backend
+    container_name: barunchuck-backend
+    restart: always
     ports:
       - "8000:8000"
-    env_file:
-      - backend/.env
-    volumes:
-      - ./backend/uploadedFiles:/app/uploadedFiles
-    restart: always
+    environment:
+      - NODE_ENV=production
+    networks:
+      - barunchuck-network
 
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    ports:
-      - "3000:80"
+    image: pcheol/barunchuck-frontend
+    container_name: barunchuck-frontend
     restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - barunchuck-network
+
+networks:
+  barunchuck-network:
+    driver: bridge
