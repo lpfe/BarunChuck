@@ -22,7 +22,7 @@ const FeedbackResult = ({ filename }) => {
       {/* 좌측: 영상 */}
       <div className="bg-black rounded-xl shadow overflow-hidden">
         <video controls className="w-full">
-          <source src={`https://your-s3-bucket/videos/${filename}.mp4`} type="video/mp4" />
+          <source src={`https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/videos/${filename}.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
