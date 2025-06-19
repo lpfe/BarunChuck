@@ -1,13 +1,14 @@
-# 단계 1: React 앱 빌드
-FROM node:20 AS build
+# Dockerfile.frontend
+FROM node:20
+
 WORKDIR /app
+
 COPY frontend/package*.json ./
 RUN npm install
+
 COPY frontend/ .
+
 RUN npm run build
 
-# 단계 2: Nginx로 정적 파일 서빙
-FROM nginx:stable
-COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npx", "serve", "-s", "build", "-l", "3000"]
