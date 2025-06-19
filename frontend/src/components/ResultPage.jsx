@@ -31,7 +31,7 @@ function ResultPage() {
     <div className="result-container">
       <div className="video-box">
         <video controls>
-          <source src={`https://${BUCKET_NAME}.${REGION}.amazonaws.com/videos/${filename}.mp4`} type="video/mp4" />
+          <source src={`https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/videos/${filename}.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
