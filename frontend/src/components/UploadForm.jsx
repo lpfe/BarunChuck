@@ -47,10 +47,10 @@ function UploadForm() {
           <h1 className="header_title">바른척</h1>
           <div className="button-container">
               <button className={`stream ${viewType == 'stream' ? 'select-view-type':''}`} onClick={() => {setVeiwType("stream")
-                window.open('https://barunchuk.5team.store')
+                location.assign('https://barunchuk.5team.store')
               }}>실시간 영상</button>
               <button className={`video ${viewType == 'video' ? 'select-view-type':''}` } onClick={() => {setVeiwType("video")
-                  window.open('http://56.155.62.180:3000')
+                location.assign('http://56.155.62.180:3000')
               }}>업로드 영상</button>
           </div>
       </header>
