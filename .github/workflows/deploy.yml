@@ -40,4 +40,4 @@ jobs:
           cd /work/BarunChuck
           docker-compose down
           docker-compose up -d
-          docker image prune -y
+          docker image prune -f
