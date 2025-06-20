@@ -40,7 +40,7 @@ function UploadForm() {
       setUploading(false)
     }
   }
-    const [viewType,setVeiwType] = useState("stream")
+    const [viewType,setVeiwType] = useState("video")
   return (
       <div className="wrapper">
       <header>
