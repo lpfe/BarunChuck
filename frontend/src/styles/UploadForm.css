@@ -101,3 +101,71 @@ html, body, #root {
 .hidden {
   display: none;
 }
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+}
+
+.wrapper{
+ display: flex;
+ flex-direction: column;
+}
+
+header{
+    display: flex;
+    padding:4px;
+    height: 100px;
+    justify-content:flex-start;
+    align-items: center;   
+    background-color: black;
+    color:#ffffff
+}
+
+.header_title{
+    padding:2px;
+    margin-left:2rem;
+    margin-right:2rem;
+    gap: 1;
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+.button-container{
+    display: flex;
+    gap:1;
+}
+
+.stream, .video{
+    background-color: #7676c0;
+    padding: 10px 20px;
+    border-radius: 9999px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.125rem;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    cursor: pointer;
+    margin-right: 1.5rem;
+}
+
+.stream:hover, .video:hover {
+    background-color: #4343c9;
+}
+
+.select-view-type{
+    background-color: #4343c9;
+}
+
+.video-upload {
+    height:calc(100vh - 108px);
+    font-size: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
