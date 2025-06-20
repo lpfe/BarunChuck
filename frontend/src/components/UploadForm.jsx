@@ -57,7 +57,7 @@ function UploadForm() {
       <main>
       <div className="container">
       <div className="card">
-        <h1 className="title">영상 분석</h1>
+        <h1 className="title">영상 분석~</h1>
         <p className="subtitle">AI-Powered Posture Analysis!</p>
 
         <div
