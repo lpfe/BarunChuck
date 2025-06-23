@@ -40,24 +40,14 @@ function UploadForm() {
       setUploading(false)
     }
   }
-    const [viewType,setVeiwType] = useState("video")
+
   return (
       <div className="wrapper">
-      <header>
-          <h1 className="header_title">바른척</h1>
-          <div className="button-container">
-              <button className={`stream ${viewType == 'stream' ? 'select-view-type':''}`} onClick={() => {setVeiwType("stream")
-                location.assign('https://barunchuk.5team.store')
-              }}>실시간 영상</button>
-              <button className={`video ${viewType == 'video' ? 'select-view-type':''}` } onClick={() => {setVeiwType("video")
-                location.assign('http://56.155.62.180:3000')
-              }}>업로드 영상</button>
-          </div>
-      </header>
+
       <main>
       <div className="container">
       <div className="card">
-        <h1 className="title">영상 분석~</h1>
+        <h1 className="title">영상 분석</h1>
         <p className="subtitle">AI-Powered Posture Analysis!</p>
 
         <div

@@ -22,3 +22,6 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`✅ Backend listening on http://localhost:${PORT}`);
 });
+
+const drawnRouter = require('./routes/drawn'); // 추가
+app.use('/', drawnRouter);                     // 추가
