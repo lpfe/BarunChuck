@@ -5,6 +5,8 @@ const router = express.Router();
 
 // 로컬 저장된 keypoint 영상 위치
 const DRAWN_DIR = path.join(__dirname, '../drawn_videos');
+console.log("Looking for:", localPath);
+
 
 // 디렉토리 없으면 생성
 if (!fs.existsSync(DRAWN_DIR)) {
