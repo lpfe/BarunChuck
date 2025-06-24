@@ -31,7 +31,7 @@ function ResultPage() {
     <div className="result-container">
       {/* ✅ 좌측: 키포인트 찍힌 영상 */}
       <div className="video-box">
-        <h3>분석된 영상</h3>
+        <h3>자세 영상</h3>
         <video controls>
           <source src={`http://56.155.62.180:8000/getDrawnVideo/${filename}.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
