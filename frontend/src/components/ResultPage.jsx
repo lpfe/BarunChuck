@@ -11,7 +11,7 @@ function ResultPage() {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/getFeedback/${filename}`)
+        const res = await axios.get(`http://56.155.62.180:8000/getFeedback/${filename}`)
         setFeedback(res.data)
       } catch (err) {
         console.error(err)
