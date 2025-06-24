@@ -14,3 +14,5 @@ secret.json
 uploadedFiles
 
 *.log
+**/*.mp4
+**/*.txt

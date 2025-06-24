@@ -3,18 +3,21 @@ import boto3
 import os
 from dotenv import load_dotenv
 
-# 환경변수 불러오기
+# ✅ 환경변수 로딩
 load_dotenv()
 
+# ✅ 절대 경로 기준 설정 (crontab에서 실행 시 필수)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DRAWN_DIR = os.path.join(BASE_DIR, 'drawn_videos')
+PROCESSED_FILE = os.path.join(BASE_DIR, 'downloaded_drawn_files.txt')
+
+# ✅ 환경변수 불러오기
 BUCKET_NAME = os.environ.get('BUCKET_NAME')
 REGION = os.environ.get('REGION')
 ACCESS_KEY = os.environ.get('ID')
 SECRET_KEY = os.environ.get('SECRET')
 
-DRAWN_DIR = './drawn_videos'
-PROCESSED_FILE = 'downloaded_drawn_files.txt'
-
-# S3 클라이언트 생성 (자격증명 명시)
+# ✅ S3 클라이언트
 s3 = boto3.client('s3',
     aws_access_key_id=ACCESS_KEY,
     aws_secret_access_key=SECRET_KEY,
@@ -50,6 +53,7 @@ def download_if_new():
 
         local_path = os.path.join(DRAWN_DIR, filename)
         print(f"📥 Downloading: {filename}")
+        print(f"📁 Saving to: {local_path}")
 
         try:
             s3.download_file(BUCKET_NAME, key, local_path)
