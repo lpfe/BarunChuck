@@ -29,7 +29,7 @@ function UploadForm() {
 
     try {
       setUploading(true)
-      const res = await axios.post('http://localhost:8000/uploadFile', formData)
+      const res = await axios.post('http://56.155.62.180:8000/uploadFile', formData)
       const name = res.data.filename.replace('.mp4', '')
       alert('✅ Upload success!')
       navigate(`/result/${name}`) // ✅ 결과 페이지로 자동 이동
