@@ -31,7 +31,7 @@ function ResultPage() {
     <div className="result-container">
       <div className="video-box">
         <h3>자세 영상</h3>
-        <video controls autoPlay muted width="100%" style={{ backgroundColor: 'black' }}>
+        <video controls muted playsInline autoPlay width="100%" style={{ backgroundColor: 'black' }}>
           <source src={`http://56.155.62.180:8000/getDrawnVideo/${filename}.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
