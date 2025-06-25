@@ -15,7 +15,7 @@ function App() {
             className={`stream ${viewType === 'stream' ? 'select-view-type' : ''}`}
             onClick={() => {
               setVeiwType("stream")
-              location.assign('http://56.155.62.180:3000')
+              location.assign('http://barunchuk.5team.store')
             }}
           >
             실시간 영상
