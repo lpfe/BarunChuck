@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     proxy: {
-      '/uploadFile': 'http://localhost:8000',
+      '/uploadFile': 'http://barunchuck.5team.store:8000',
     },
   },
 })
