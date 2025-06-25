@@ -23,6 +23,7 @@ const upload = multer({ storage });
 
 // POST /uploadFile
 router.post('/uploadFile', upload.single('attachment'), async (req, res) => {
+  console.log('✅ POST /uploadFile 호출됨')
 try {
     const filename = req.file.filename;
     const filePath = path.join(__dirname, '../uploadedFiles', filename);
