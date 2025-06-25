@@ -29,11 +29,10 @@ function UploadForm() {
 
     try {
       setUploading(true)
-      // const res = await axios.post('http://56.155.62.180:8000/uploadFile', formData)
-      const res = await axios.post('https://barunchuck.5team.store:8000/uploadFile', formData)
+      const res = await axios.post('http://56.155.62.180:8000/uploadFile', formData)
       const name = res.data.filename.replace('.mp4', '')
       alert('✅ Upload success!')
-      navigate(`/result/${name}`) // ✅ 결과 페이지로 자동 이동
+      navigate(`/result/${name}`)
     } catch (err) {
       alert('❌ Upload failed')
       console.error(err)
@@ -43,60 +42,55 @@ function UploadForm() {
   }
 
   return (
-      <div className="wrapper">
-
+    <div className="wrapper">
       <main>
-      <div className="container">
-      <div className="card">
-        <h1 className="title">영상 분석</h1>
-        <p className="subtitle">AI-Powered Posture Analysis!</p>
+        <div className="container">
+          <div className="card">
+            <h1 className="title">영상 분석</h1>
+            <p className="subtitle">AI-Powered Posture Analysis!</p>
 
-        <div
-          className={`upload-area ${isDragging ? 'dragover' : ''}`}
-          onDrop={handleDrop}
-          onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
-          onDragEnter={() => setIsDragging(true)}
-          onDragLeave={() => setIsDragging(false)}
-        >
-          <svg className="upload-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M4 12l1.664-1.664a4 4 0 015.656 0L12 12m0 0l.68-.68a4 4 0 015.656 0L20 12m-8 0v6" />
-          </svg>
-          <p>Drag & Drop your video here</p>
-          {/* <span className="or-text">or</span> */}
+            <div
+              className={`upload-area ${isDragging ? 'dragover' : ''}`}
+              onDrop={handleDrop}
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
+              onDragEnter={() => setIsDragging(true)}
+              onDragLeave={() => setIsDragging(false)}
+            >
+              <svg className="upload-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M4 12l1.664-1.664a4 4 0 015.656 0L12 12m0 0l.68-.68a4 4 0 015.656 0L20 12m-8 0v6" />
+              </svg>
+              <p>Drag & Drop your video here</p>
 
-          <input
-            id="fileUpload"
-            type="file"
-            accept="video/*"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-          <button
-            type="button"
-            className="btn"
-            onClick={() => document.getElementById('fileUpload').click()}
-          >
-            📁 Browse Files
-          </button>
+              <input
+                id="fileUpload"
+                type="file"
+                accept="video/*"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <button
+                type="button"
+                className="btn"
+                onClick={() => document.getElementById('fileUpload').click()}
+              >
+                📁 Browse Files
+              </button>
+            </div>
+
+            {file && <p className="file-name">📁 Selected File: {file.name}</p>}
+
+            <button
+              type="button"
+              onClick={handleUpload}
+              disabled={!file || uploading}
+              className="btn full"
+            >
+              {uploading ? 'Uploading...' : 'Analyze Posture'}
+            </button>
+          </div>
         </div>
-
-          {file && (
-            <p className="file-name">📁 Selected File: {file.name}</p>
-          )}
-
-        <button
-          type="button"
-          onClick={handleUpload}
-          disabled={!file || uploading}
-          className="btn full"
-        >
-          {uploading ? 'Uploading...' : 'Analyze Posture'}
-        </button>
-      </div>
+      </main>
     </div>
-            </main>
-        </div>
-
   )
 }
 

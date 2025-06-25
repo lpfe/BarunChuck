@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import '../styles/ResultPage.css' // CSS 연결
+import '../styles/ResultPage.css'
 
 function ResultPage() {
   const { filename } = useParams()
@@ -11,8 +11,7 @@ function ResultPage() {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        // const res = await axios.get(`http://56.155.62.180:8000/getFeedback/${filename}`)
-        const res = await axios.get(`https://barunchuck.5team.store:8000/getFeedback/${filename}`)
+        const res = await axios.get(`http://56.155.62.180:8000/getFeedback/${filename}`)
         setFeedback(res.data)
       } catch (err) {
         console.error(err)
@@ -30,19 +29,16 @@ function ResultPage() {
 
   return (
     <div className="result-container">
-      {/* ✅ 좌측: 키포인트 찍힌 영상 */}
       <div className="video-box">
         <h3>자세 영상</h3>
         <video controls autoPlay muted width="100%" style={{ backgroundColor: 'black' }}>
-          <source src={`https://barunchuck.5team.store:8000/getDrawnVideo/${filename}.mp4`} type="video/mp4" />
+          <source src={`http://56.155.62.180:8000/getDrawnVideo/${filename}.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
 
-      {/* ✅ 우측: 분석 피드백 */}
       <div className="feedback-box">
         <h2>분석 피드백</h2>
-
         <div className="summary-box">
           <h3>최종 요약</h3>
           <p>{feedback.summary || "요약 없음"}</p>
