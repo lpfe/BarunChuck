@@ -14,7 +14,7 @@ function App() {
                 location.assign('https://barunchuk.5team.store')
               }}>실시간 영상</button>
               <button className={`video ${viewType == 'video' ? 'select-view-type':''}` } onClick={() => {setVeiwType("video")
-                location.assign('http://56.155.62.180:3000')
+                location.assign('http://barunchuck.5team.store')
               }}>업로드 영상</button>
           </div>
       </header>
