@@ -26,6 +26,7 @@ router.get('/getDrawnVideo/:filename', async (req, res) => {
 
   // 이미 파일이 로컬에 있으면 바로 제공
   if (fs.existsSync(localPath)) {
+    res.setHeader('Content-Type', 'video/mp4');
     return res.sendFile(localPath);
   }
 
@@ -44,6 +45,7 @@ router.get('/getDrawnVideo/:filename', async (req, res) => {
     })
     .pipe(file)
     .on('close', () => {
+      res.setHeader('Content-Type', 'video/mp4');
       res.sendFile(localPath);
     });
 });
