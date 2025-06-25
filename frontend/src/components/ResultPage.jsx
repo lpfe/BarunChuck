@@ -11,7 +11,8 @@ function ResultPage() {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const res = await axios.get(`http://56.155.62.180:8000/getFeedback/${filename}`)
+        // const res = await axios.get(`http://56.155.62.180:8000/getFeedback/${filename}`)
+        const res = await axios.get(`https://barunchuck.5team.store/getFeedback/${filename}`)
         setFeedback(res.data)
       } catch (err) {
         console.error(err)
@@ -33,7 +34,7 @@ function ResultPage() {
       <div className="video-box">
         <h3>자세 영상</h3>
         <video controls autoPlay muted width="100%" style={{ backgroundColor: 'black' }}>
-          <source src={`http://56.155.62.180:8000/getDrawnVideo/${filename}.mp4`} type="video/mp4" />
+          <source src={`http://https://barunchuck.5team.store/getDrawnVideo/${filename}.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
