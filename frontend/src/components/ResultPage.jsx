@@ -16,7 +16,7 @@ function ResultPage() {
         setFeedback(res.data)
         setLoading(false)
       } catch (err) {
-        if (retryCount < 5) {
+        if (retryCount < 50) {
           setTimeout(() => setRetryCount(prev => prev + 1), 10000) // 10초 후 재시도
         } else {
           setLoading(false)
