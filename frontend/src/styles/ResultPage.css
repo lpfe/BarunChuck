@@ -5,7 +5,8 @@
   padding: 20px;
   max-width: 1200px;
   margin: auto;
-  height: 100vh;
+  /* height: 100vh; */
+  overflow-y: hidden;
 }
 
 @media (min-width: 768px) {
@@ -16,7 +17,7 @@
 
 .video-box {
   flex: 1;
-  background: black;
+  background: rgb(255, 255, 255);
   border-radius: 10px;
   overflow: hidden;
 }

@@ -47,7 +47,7 @@ function UploadForm() {
         <div className="container">
           <div className="card">
             <h1 className="title">영상 분석</h1>
-            <p className="subtitle">AI-Powered Posture Analysis!</p>
+            <p className="subtitle">AI-Powered Posture Analysis</p>
 
             <div
               className={`upload-area ${isDragging ? 'dragover' : ''}`}
