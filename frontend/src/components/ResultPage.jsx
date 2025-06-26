@@ -16,8 +16,8 @@ function ResultPage() {
         setFeedback(res.data)
         setLoading(false)
       } catch (err) {
-        if (retryCount < 50) {
-          setTimeout(() => setRetryCount(prev => prev + 1), 10000) // 10초 후 재시도
+        if (retryCount < 100) {
+          setTimeout(() => setRetryCount(prev => prev + 1), 13000) // 10초 후 재시도
         } else {
           setLoading(false)
           alert('❌ 피드백을 불러올 수 없습니다.')
