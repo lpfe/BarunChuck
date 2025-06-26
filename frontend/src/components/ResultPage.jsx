@@ -7,22 +7,26 @@ function ResultPage() {
   const { filename } = useParams()
   const [feedback, setFeedback] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [retryCount, setRetryCount] = useState(0)
 
   useEffect(() => {
     const fetchResult = async () => {
       try {
         const res = await axios.get(`http://56.155.62.180:8000/getFeedback/${filename}`)
         setFeedback(res.data)
-      } catch (err) {
-        console.error(err)
-        alert('❌ 피드백을 불러올 수 없습니다.')
-      } finally {
         setLoading(false)
+      } catch (err) {
+        if (retryCount < 5) {
+          setTimeout(() => setRetryCount(prev => prev + 1), 10000) // 10초 후 재시도
+        } else {
+          setLoading(false)
+          alert('❌ 피드백을 불러올 수 없습니다.')
+        }
       }
     }
 
     fetchResult()
-  }, [filename])
+  }, [filename, retryCount])
 
   if (loading) return <div className="loading">Analyzing posture... ⏳</div>
   if (!feedback) return <div className="error">❌ 분석 데이터를 불러올 수 없습니다.</div>
@@ -30,7 +34,6 @@ function ResultPage() {
   return (
     <div className="result-container">
       <div className="video-box">
-        {/* <h3>자세 영상</h3> */}
         <video controls muted playsInline autoPlay width="100%" style={{ backgroundColor: 'black' }}>
           <source src={`http://56.155.62.180:8000/getDrawnVideo/${filename}.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
