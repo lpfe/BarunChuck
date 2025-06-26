@@ -8,7 +8,10 @@ function ResultPage() {
   const [feedback, setFeedback] = useState(null)
   const [loading, setLoading] = useState(true)
   const [retryCount, setRetryCount] = useState(0)
+  const [videoReady, setVideoReady] = useState(false)
+  const [videoRetryCount, setVideoRetryCount] = useState(0)
 
+  // ✅ 피드백 JSON 로딩
   useEffect(() => {
     const fetchResult = async () => {
       try {
@@ -17,7 +20,7 @@ function ResultPage() {
         setLoading(false)
       } catch (err) {
         if (retryCount < 50) {
-          setTimeout(() => setRetryCount(prev => prev + 1), 10000) // 10초 후 재시도
+          setTimeout(() => setRetryCount(prev => prev + 1), 10000)
         } else {
           setLoading(false)
           alert('❌ 피드백을 불러올 수 없습니다.')
@@ -28,8 +31,29 @@ function ResultPage() {
     fetchResult()
   }, [filename, retryCount])
 
-  if (loading) return <div className="loading">Analyzing posture... ⏳</div>
-  if (!feedback) return <div className="error">❌ 분석 데이터를 불러올 수 없습니다.</div>
+  // ✅ 영상 로딩 상태 확인
+  useEffect(() => {
+    const checkVideo = async () => {
+      try {
+        const res = await axios.head(`http://56.155.62.180:8000/getDrawnVideo/${filename}.mp4`)
+        if (res.status === 200) setVideoReady(true)
+      } catch {
+        if (videoRetryCount < 50) {
+          setTimeout(() => setVideoRetryCount(prev => prev + 1), 10000)
+        }
+      }
+    }
+
+    checkVideo()
+  }, [filename, videoRetryCount])
+
+  if (loading || !videoReady) {
+    return <div className="loading">분석된 결과를 불러오고 있습니다... ⏳</div>
+  }
+
+  if (!feedback) {
+    return <div className="error">❌ 분석 데이터를 불러올 수 없습니다.</div>
+  }
 
   return (
     <div className="result-container">
