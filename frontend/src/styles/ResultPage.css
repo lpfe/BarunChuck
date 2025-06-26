@@ -6,7 +6,7 @@
   max-width: 1200px;
   margin: auto;
   /* height: 100vh; */
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
